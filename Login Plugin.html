@@ -1,0 +1,264 @@
+<html>
+<head>
+    <title>Login Plugin</title>
+    <style>
+        body {
+            background: #1f1f1f;
+        }
+
+        .center {
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -ms-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .login-panel {            
+            min-width: 300px;
+            height: 100px;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 50px;
+            word-break: keep-all;
+            text-align: center;
+            line-height: 95px;
+            font-family: Calibri;
+            font-weight: lighter;
+        }
+
+        @-webkit-keyframes rubberBand {
+            0% {
+                width: 400px;
+            }
+
+            30% {
+                width: 360px;
+            }
+
+            40% {
+                width: 330px;
+            }
+
+            60% {
+                width: 310px;
+            }
+
+            100% {
+                width: 300px;
+            }
+        }
+
+        @keyframes rubberBand {
+            0% {
+                width: 400px;
+            }
+
+            30% {
+                width: 360px;
+            }
+
+            40% {
+                width: 330px;
+            }
+
+            60% {
+                width: 310px;
+            }
+
+            100% {
+                width: 300px;
+            }
+        }
+
+        .rubberBand {
+            -webkit-animation-name: rubberBand;
+            animation-name: rubberBand;
+        }
+
+        .animated {
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .login-title-panel {
+            position: relative;
+        }
+
+        .login-name-panel {
+            position: relative;
+            display: none;
+        }
+        .login-email-panel {
+            position: relative;
+            display: none;
+        }
+        .login-password-panel {
+            position: relative;
+            display: none;
+        }        
+        .login-welcome-panel {
+            position: relative;
+            display: none;
+        }
+
+        .login-type-icon{
+            position: absolute;
+            top:-2px;
+            left:-2px;
+            width: 100px;
+            height: 100px;
+            border:2px solid #fff;
+            border-radius: 50px;
+        }
+
+        .login-btn-area{
+           position: absolute;
+            top:-2px;
+            right:-2px;
+            width: 100px;
+            height: 100px;                       
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;            
+        }
+
+        .login-btn{
+            position: absolute;
+            top:25px;
+            left:25px;
+            width:50px;
+            height: 50px;
+            border-radius: 25px;
+            background:#2a2a2a;
+        }
+        .login-input-area{
+            position: absolute;
+            top:0;
+            left:100px;
+            width:calc(100% - 200px);
+            height: 100%;
+            padding:0 15px;
+        }
+        .login-text-box{
+            width:100%;
+            height: 50px;
+            font-size: 30px;
+            color:#fff;
+            border:none;
+            background: transparent;
+        }
+        .login-input-title{
+            font-size: 25px;
+            color:#404040;
+            width:100%;
+            height:50px;
+            display: block;
+            text-align: left;
+            line-height: 45px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center login-panel animated sign-up-title">
+        <div class="login-title-panel">
+            Sign Up
+        </div>
+
+        <div class="login-name-panel">
+            <div class="login-type-icon">
+
+            </div>  
+            <div class="login-input-area">
+                <span class="login-input-title">
+                    Name
+                </span>
+                <input type="text" class="login-text-box" />
+            </div>
+            <div class="login-btn-area"> 
+                <div class="login-btn" data-next-step="email">
+
+                </div>
+            </div>         
+        </div>
+        <div class="login-email-panel">
+            <div class="login-type-icon">
+
+            </div>  
+            <div class="login-input-area">
+                <span class="login-input-title">
+                    Email
+                </span>
+                <input type="text" class="login-text-box" />
+            </div>
+            <div class="login-btn-area"> 
+                <div class="login-btn" data-next-step="password">
+
+                </div>
+            </div>
+        </div>
+        <div class="login-password-panel">
+            <div class="login-type-icon">
+
+            </div>  
+            <div class="login-input-area">
+                <span class="login-input-title">
+                    Password
+                </span>
+                <input type="text" class="login-text-box" />
+            </div>
+            <div class="login-btn-area"> 
+                <div class="login-btn" data-next-step="welcome">
+
+                </div>
+            </div>
+        </div>
+        <div class="login-welcome-panel">
+            Welcome
+        </div>
+    </div>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script>
+        $(function () {
+            $(".sign-up-title").on("click", function () {
+                var $this = $(".login-panel");
+                $this.removeClass("sign-up-title");
+                $(".login-title-panel").css("display", "none");
+                $(".login-name-panel").css("display", "block");  
+                            
+            });
+
+            $(".login-btn").on("click",function(){
+                 var $this = $(this),
+                     nextStep = $this.data("next-step");
+                 switch (nextStep) {                    
+                    case "email":
+                        $(".login-name-panel").css("display", "none");
+                        $(".login-name-panel div").css("display", "none");
+                        $(".login-email-panel").css("display", "block");                        
+                        break;
+                    case "password":
+                        $(".login-email-panel").css("display", "none");
+                        $(".login-email-panel div").css("display", "none");
+                        $(".login-password-panel").css("display", "block");                        
+                        break;
+                    case "welcome":
+                        $(".login-password-panel").css("display", "none");
+                        $(".login-password-panel div").css("display", "none");
+                        $(".login-welcome-panel").css("display", "block");  
+                        setTimeout(function(){
+                            $(".login-panel").fadeOut();
+                        },1000);
+                        break;
+                } 
+            })
+        })
+    </script>
+</body>
+</html>
